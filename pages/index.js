@@ -3,10 +3,14 @@ import Link from "next/link";
 import { db } from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
 import UserForm from "../components/userForm";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/router";
+import { auth } from "./firebase";
 
 export default function Home() {
   const [items, setItems] = useState([]);
   const itemsCollectionRef = collection(db, "items");
+  const router = useRouter();
 
   useEffect(() => {
     const getItems = async () => {
@@ -19,7 +23,16 @@ export default function Home() {
   }, []);
 
   const loginUser = (email, password) => {
-    console.log(email, password);
+    signInWithEmailAndPassword(auth, email, password)
+      .then(cred => {
+        console.log('user logged in:', cred.user)
+        router.push({
+          pathname: "/store",
+        });
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
   };
 
   return (
