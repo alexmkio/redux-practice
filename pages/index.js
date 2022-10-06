@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../features/user/userSlice";
 import Link from "next/link";
 import UserForm from "../components/userForm";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
@@ -7,10 +9,17 @@ import { auth } from "./firebase";
 
 export default function Home() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        dispatch(
+          setUser({
+            email: user.email,
+            uid: user.uid,
+          })
+        );
         router.push({
           pathname: "/store",
         });

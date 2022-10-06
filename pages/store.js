@@ -1,9 +1,11 @@
 import Logout from "../components/logout";
 import { useEffect, useState } from "react";
+import { useSelector } from 'react-redux'
 import { db } from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 export default function Store() {
+  const userEmail = useSelector(state => state.user.emailAddress)
   const [items, setItems] = useState([]);
   const itemsCollectionRef = collection(db, "items");
 
@@ -19,7 +21,8 @@ export default function Store() {
 
   return (
     <>
-      <h1>Store</h1>
+      <h1>User: {userEmail}</h1>
+      <h2>Store</h2>
       <Logout />
     </>
   );
