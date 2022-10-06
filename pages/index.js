@@ -14,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user)
+        console.log(user);
         dispatch(
           setUser({
             email: user.email,
