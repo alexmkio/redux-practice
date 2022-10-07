@@ -13,7 +13,6 @@ const itemsCollectionRef = collection(db, "items");
 export const fetchItems = createAsyncThunk("items/fetchItems", async () => {
   const promise = await getDocs(itemsCollectionRef);
   const items = promise.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  console.log("fetched items", items);
   return items;
 });
 
@@ -23,7 +22,7 @@ export const itemsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchItems.pending, (state, action) => {
+      .addCase(fetchItems.pending, (state) => {
         state.status = "loading";
       })
       .addCase(fetchItems.fulfilled, (state, action) => {
@@ -40,3 +39,5 @@ export const itemsSlice = createSlice({
 export const { setItems } = itemsSlice.actions;
 
 export default itemsSlice.reducer;
+
+export const exportAllItems = (state) => state.items.items;
