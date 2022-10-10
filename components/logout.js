@@ -5,8 +5,7 @@ import { signOut } from "firebase/auth";
 export default function Logout() {
   const router = useRouter();
 
-  const handleClick = (event) => {
-    event.preventDefault();
+  const handleClick = () => {
     signOut(auth)
       .then(() => {
         console.log("user signed out");
@@ -19,5 +18,5 @@ export default function Logout() {
       });
   };
 
-  return <button onClick={(event) => handleClick(event)}>Logout</button>;
+  return <button onClick={() => handleClick()}>Logout</button>;
 }
