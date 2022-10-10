@@ -4,6 +4,11 @@ import ItemsList from "../components/items";
 
 export default function Store() {
   const userEmail = useSelector((state) => state.user.emailAddress);
+  const userCart = useSelector((state) => state.user.cart);
+
+  const totalNumberOfItems = userCart.reduce((acc, element) => {
+    return acc += Number(element.qty)
+  }, 0)
 
   return (
     <>
