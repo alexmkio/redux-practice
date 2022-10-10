@@ -15,9 +15,16 @@ export const userSlice = createSlice({
       state.emailAddress = action.payload.email;
       state.cart = action.payload.cart;
     },
+    incrementItemCount: (state, action) => {
+      console.log("+", action.payload);
+    },
+    decrementItemCount: (state, action) => {
+      console.log("-", action.payload);
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, incrementItemCount, decrementItemCount } =
+  userSlice.actions;
 
 export default userSlice.reducer;

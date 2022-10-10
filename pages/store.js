@@ -7,8 +7,8 @@ export default function Store() {
   const userCart = useSelector((state) => state.user.cart);
 
   const totalNumberOfItems = userCart.reduce((acc, element) => {
-    return acc += Number(element.qty)
-  }, 0)
+    return (acc += Number(element.qty));
+  }, 0);
 
   return (
     <>
