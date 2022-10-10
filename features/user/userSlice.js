@@ -13,6 +13,7 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.id = action.payload.id;
       state.emailAddress = action.payload.email;
+      state.cart = action.payload.cart;
     },
   },
 });

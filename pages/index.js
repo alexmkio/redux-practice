@@ -6,6 +6,8 @@ import UserForm from "../components/userForm";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
 import { auth } from "./firebase";
+import { db } from "./firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function Home() {
   const router = useRouter();
@@ -14,15 +16,24 @@ export default function Home() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(
-          setUser({
-            email: user.email,
-            uid: user.uid,
-          })
-        );
-        router.push({
-          pathname: "/store",
-        });
+        try {
+          getDoc(doc(db, "users", user.uid))
+            .then((data) => data.data())
+            .then((data) => {
+              dispatch(
+                setUser({
+                  email: user.email,
+                  uid: user.uid,
+                  cart: data.cart,
+                })
+              );
+            });
+          router.push({
+            pathname: "/store",
+          });
+        } catch (error) {
+          console.log("failed to fetch user", error);
+        }
       }
     });
   }, []);
