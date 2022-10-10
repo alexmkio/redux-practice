@@ -14,6 +14,7 @@ export default function Store() {
     <>
       <h1>User: {userEmail}</h1>
       <h2>Store</h2>
+      <h3>Total # of items in cart: {totalNumberOfItems}</h3>
       <ItemsList />
       <Logout />
     </>
