@@ -5,9 +5,9 @@ export default function UserForm({ submissionHandler, submitText }) {
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
-    event.preventDefault()
-    submissionHandler(emailAddress, password)
-  }
+    event.preventDefault();
+    submissionHandler(emailAddress, password);
+  };
 
   return (
     <form onSubmit={handleSubmit}>

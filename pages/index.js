@@ -28,17 +28,20 @@ export default function Home() {
     });
   }, []);
 
-  const loginUser = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((cred) => {
-        console.log("user logged in:", cred.user);
+  const loginUser = async (email, password) => {
+    try {
+      let response = await signInWithEmailAndPassword(auth, email, password);
+      if (!response) {
+        throw new Error(response);
+      } else {
+        console.log("user logged in:", response);
         router.push({
           pathname: "/store",
         });
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
