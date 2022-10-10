@@ -7,7 +7,8 @@ import {
 export default function Item({ item }) {
   const dispatch = useDispatch();
   const userCart = useSelector((state) => state.user.cart);
-  let matchingItemInCart = userCart.find((element) => element.item === item.id);
+  let matchingItemInCart = userCart[item.id];
+
   if (!matchingItemInCart) {
     matchingItemInCart = {
       qty: 0,
