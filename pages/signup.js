@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db } from "./firebase";
 import UserForm from "../components/userForm";
 import { useRouter } from "next/router";
@@ -18,7 +18,12 @@ export default function SignUp() {
       if (!response) {
         throw new Error(response);
       } else {
-        console.log("user created:", response);
+        console.log("user created:", response.user.uid);
+
+        await setDoc(doc(db, "users", response.user.uid), {
+          cart: [],
+        });
+
         router.push({
           pathname: "/store",
         });
