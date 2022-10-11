@@ -41,10 +41,10 @@ export const userSlice = createSlice({
       let user = { ...state };
       let itemInCart = user.cart[action.payload];
       if (itemInCart) {
-        let docRef = `cart.${action.payload}.qty`;
         let updatedAmount = itemInCart.qty - 1;
+        let fieldRef = `cart.${action.payload}.qty`;
         let update = {
-          [docRef]: updatedAmount,
+          [fieldRef]: updatedAmount,
         };
         updateDoc(doc(db, "users", user.id), update);
       }
