@@ -18,18 +18,15 @@ export default function SignUp() {
       if (!response) {
         throw new Error(response);
       } else {
-        console.log("user created:", response.user.uid);
-
         await setDoc(doc(db, "users", response.user.uid), {
           cart: [],
         });
-
         router.push({
           pathname: "/store",
         });
       }
     } catch (error) {
-      console.log(error);
+      console.log("error", error);
     }
   };
 
