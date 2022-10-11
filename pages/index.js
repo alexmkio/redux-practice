@@ -45,11 +45,6 @@ export default function Home() {
       let response = await signInWithEmailAndPassword(auth, email, password);
       if (!response) {
         throw new Error(response);
-      } else {
-        console.log("user logged in:", response);
-        router.push({
-          pathname: "/store",
-        });
       }
     } catch (error) {
       console.log("sign in error:", error);
