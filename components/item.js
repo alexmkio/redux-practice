@@ -7,14 +7,21 @@ import {
 export default function Item({ item }) {
   const dispatch = useDispatch();
   const userCart = useSelector((state) => state.user.cart);
-  let matchingItemInCart = userCart[item.id];
+
+  let matchingItemInCart;
+
+  if (userCart) {
+    matchingItemInCart = userCart[item.id];
+  }
 
   if (!matchingItemInCart) {
     matchingItemInCart = {
       qty: 0,
     };
   }
+
   let decrementButton;
+
   if (matchingItemInCart.qty > 0) {
     decrementButton = (
       <button value="decrement" onClick={(event) => handleClick(event)}>
