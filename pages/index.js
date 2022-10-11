@@ -6,6 +6,8 @@ import UserForm from "../components/userForm";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
 import { auth } from "./firebase";
+import { db } from "./firebase";
+import { doc, onSnapshot } from "firebase/firestore";
 
 export default function Home() {
   const router = useRouter();
@@ -14,31 +16,42 @@ export default function Home() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
-        dispatch(
-          setUser({
-            email: user.email,
-            uid: user.uid,
-          })
-        );
-        router.push({
-          pathname: "/store",
-        });
+        try {
+          onSnapshot(doc(db, "users", user.uid), (doc) => {
+            let updatedUserResponse = doc.data();
+
+            dispatch(
+              setUser({
+                email: user.email,
+                uid: user.uid,
+                cart: updatedUserResponse.cart,
+              })
+            );
+          });
+          router.push({
+            pathname: "/store",
+          });
+        } catch (error) {
+          console.log("failed to fetch user", error);
+        }
       }
     });
   }, []);
 
-  const loginUser = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((cred) => {
-        console.log("user logged in:", cred.user);
+  const loginUser = async (email, password) => {
+    try {
+      let response = await signInWithEmailAndPassword(auth, email, password);
+      if (!response) {
+        throw new Error(response);
+      } else {
+        console.log("user logged in:", response);
         router.push({
           pathname: "/store",
         });
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -3,7 +3,7 @@ import { db } from "../../pages/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 const initialState = {
-  items: [],
+  items: null,
   status: "idle",
   error: null,
 };
