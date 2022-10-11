@@ -19,8 +19,8 @@ export const userSlice = createSlice({
     },
     incrementItemCount: (state, action) => {
       let user = { ...state };
-      let itemInCart = user.cart[action.payload];
-      if (itemInCart) {
+      if (user.cart[action.payload]) {
+        let itemInCart = user.cart[action.payload];
         let docRef = `cart.${action.payload}.qty`;
         let updatedAmount = itemInCart.qty + 1;
         let update = {
