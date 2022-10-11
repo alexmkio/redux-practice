@@ -6,9 +6,12 @@ export default function Store() {
   const userEmail = useSelector((state) => state.user.emailAddress);
   const userCart = useSelector((state) => state.user.cart);
 
-  const totalNumberOfItems = Object.keys(userCart).reduce((acc, element) => {
-    return (acc += userCart[element].qty);
-  }, 0);
+  let totalNumberOfItems;
+  if (userCart) {
+    totalNumberOfItems = Object.keys(userCart).reduce((acc, element) => {
+      return (acc += userCart[element].qty);
+    }, 0);
+  }
 
   return (
     <>
