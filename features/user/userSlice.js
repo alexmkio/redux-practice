@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../pages/firebase";
 
 const initialState = {
   id: null,
@@ -16,10 +18,28 @@ export const userSlice = createSlice({
       state.cart = action.payload.cart;
     },
     incrementItemCount: (state, action) => {
-      console.log("+", action.payload);
+      let user = { ...state };
+      let itemInCart = user.cart[action.payload];
+      if (itemInCart) {
+        let docRef = `cart.${action.payload}.qty`;
+        let updatedAmount = itemInCart.qty + 1;
+        let update = {
+          [docRef]: updatedAmount,
+        };
+        updateDoc(doc(db, "users", user.id), update);
+      }
     },
     decrementItemCount: (state, action) => {
-      console.log("-", action.payload);
+      let user = { ...state };
+      let itemInCart = user.cart[action.payload];
+      if (itemInCart) {
+        let docRef = `cart.${action.payload}.qty`;
+        let updatedAmount = itemInCart.qty - 1;
+        let update = {
+          [docRef]: updatedAmount,
+        };
+        updateDoc(doc(db, "users", user.id), update);
+      }
     },
   },
 });
