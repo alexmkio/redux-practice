@@ -16,9 +16,10 @@ export default function Home() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        try {
-          onSnapshot(doc(db, "users", user.uid), (doc) => {
-            let updatedUserResponse = doc.data();
+        onSnapshot(
+          doc(db, "users", user.uid),
+          (snapshot) => {
+            let updatedUserResponse = snapshot.data();
 
             dispatch(
               setUser({
@@ -27,13 +28,14 @@ export default function Home() {
                 cart: updatedUserResponse.cart,
               })
             );
-          });
-          router.push({
-            pathname: "/store",
-          });
-        } catch (error) {
-          console.log("failed to fetch user", error);
-        }
+          },
+          (error) => {
+            console.log("error with realtime listener:", error);
+          }
+        );
+        router.push({
+          pathname: "/store",
+        });
       }
     });
   }, []);
