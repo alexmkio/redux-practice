@@ -40,8 +40,8 @@ export const userSlice = createSlice({
     decrementItemCount: (state, action) => {
       let user = { ...state };
       let itemInCart = user.cart[action.payload];
-      if (itemInCart) {
-        let updatedAmount = itemInCart.qty - 1;
+      let updatedAmount = itemInCart.qty - 1;
+      if (updatedAmount > 0) {
         let fieldRef = `cart.${action.payload}.qty`;
         let update = {
           [fieldRef]: updatedAmount,
