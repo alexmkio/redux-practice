@@ -8,7 +8,6 @@ export default function Logout() {
   const handleClick = () => {
     signOut(auth)
       .then(() => {
-        console.log("user signed out");
         router.push({
           pathname: "/",
         });
