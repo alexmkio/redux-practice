@@ -27,6 +27,14 @@ export const userSlice = createSlice({
           [docRef]: updatedAmount,
         };
         updateDoc(doc(db, "users", user.id), update);
+      } else {
+        let docRef = `cart.${action.payload}`;
+        let update = {
+          [docRef]: {
+            qty: 1,
+          },
+        };
+        updateDoc(doc(db, "users", user.id), update);
       }
     },
     decrementItemCount: (state, action) => {
