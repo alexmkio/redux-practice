@@ -13,7 +13,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.id = action.payload.id;
+      state.id = action.payload.uid;
       state.emailAddress = action.payload.email;
       state.cart = action.payload.cart;
     },
