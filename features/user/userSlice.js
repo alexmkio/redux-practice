@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteField } from "firebase/firestore";
 import { db } from "../../pages/firebase";
 
 const initialState = {
@@ -47,6 +47,11 @@ export const userSlice = createSlice({
           [fieldRef]: updatedAmount,
         };
         updateDoc(doc(db, "users", user.id), update);
+      } else {
+        let fieldRef = `cart.${action.payload}`;
+        updateDoc(doc(db, "users", user.id), {
+          [fieldRef]: deleteField(),
+        });
       }
     },
   },
