@@ -7,7 +7,7 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
 import { auth } from "./firebase";
 import { db } from "./firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 
 export default function Home() {
   const router = useRouter();
@@ -17,17 +17,17 @@ export default function Home() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         try {
-          getDoc(doc(db, "users", user.uid))
-            .then((data) => data.data())
-            .then((data) => {
-              dispatch(
-                setUser({
-                  email: user.email,
-                  uid: user.uid,
-                  cart: data.cart,
-                })
-              );
-            });
+          onSnapshot(doc(db, "users", user.uid), (doc) => {
+            let updatedUserResponse = doc.data();
+
+            dispatch(
+              setUser({
+                email: user.email,
+                uid: user.uid,
+                cart: updatedUserResponse.cart,
+              })
+            );
+          });
           router.push({
             pathname: "/store",
           });
