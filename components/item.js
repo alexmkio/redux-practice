@@ -9,6 +9,7 @@ export default function Item({ item }) {
   const userCart = useSelector((state) => state.user.cart);
 
   let matchingItemInCart;
+  let extendedPrice;
 
   if (userCart) {
     matchingItemInCart = userCart[item.id];
@@ -18,6 +19,9 @@ export default function Item({ item }) {
     matchingItemInCart = {
       qty: 0,
     };
+    extendedPrice = 0;
+  } else {
+    extendedPrice = (userCart[item.id].qty * item.price).toFixed(2);
   }
 
   let decrementButton;
@@ -40,10 +44,11 @@ export default function Item({ item }) {
 
   return (
     <article>
-      <h3>{item.brand}</h3>
-      <p>{item.model}</p>
-      <p>{item.price}</p>
-      <p>QTY: {matchingItemInCart.qty}</p>
+      <h3>Brand: {item.brand}</h3>
+      <p>Model: {item.model}</p>
+      <p>Price per unit: ${item.price}</p>
+      <p>QTY in cart: {matchingItemInCart.qty}</p>
+      <p>Extended Price: ${extendedPrice}</p>
       <button value="increment" onClick={(event) => handleClick(event)}>
         Increment
       </button>
