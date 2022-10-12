@@ -43,9 +43,9 @@ export default function Item({ item }) {
     <article>
       <h3>Brand: {item.brand}</h3>
       <p>Model: {item.model}</p>
-      <p>Price per unit: {item.price}</p>
+      <p>Price per unit: ${item.price}</p>
       <p>QTY in cart: {matchingItemInCart.qty}</p>
-      <p>Extended Price: {extendedPrice}</p>
+      <p>Extended Price: ${extendedPrice}</p>
       <button value="increment" onClick={(event) => handleClick(event)}>
         Increment
       </button>
