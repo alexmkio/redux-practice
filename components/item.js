@@ -13,12 +13,15 @@ export default function Item({ item }) {
 
   if (userCart) {
     matchingItemInCart = userCart[item.id];
-    extendedPrice = (userCart[item.id].qty * item.price).toFixed(2);
-  } else {
+  }
+
+  if (!matchingItemInCart) {
     matchingItemInCart = {
       qty: 0,
     };
     extendedPrice = 0;
+  } else {
+    extendedPrice = (userCart[item.id].qty * item.price).toFixed(2);
   }
 
   let decrementButton;
