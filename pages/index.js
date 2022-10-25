@@ -38,7 +38,7 @@ export default function Home() {
         });
       }
     });
-  }, []);
+  }, [dispatch, router]);
 
   const loginUser = async (email, password) => {
     try {
