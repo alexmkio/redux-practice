@@ -19,7 +19,7 @@ export default function SignUp() {
         throw new Error(response);
       } else {
         await setDoc(doc(db, "users", response.user.uid), {
-          cart: [],
+          cart: {},
         });
         router.push({
           pathname: "/store",
