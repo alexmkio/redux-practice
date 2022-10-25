@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth } from "../app/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "./firebase";
+import { db } from "../app/firebase";
 import UserForm from "../components/userForm";
 import { useRouter } from "next/router";
 

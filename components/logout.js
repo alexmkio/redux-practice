@@ -1,4 +1,4 @@
-import { auth } from "../pages/firebase";
+import { auth } from "../app/firebase";
 import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
 

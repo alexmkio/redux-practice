@@ -5,8 +5,8 @@ import Link from "next/link";
 import UserForm from "../components/userForm";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
-import { auth } from "./firebase";
-import { db } from "./firebase";
+import { auth } from "../app/firebase";
+import { db } from "../app/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 
 export default function Home() {
